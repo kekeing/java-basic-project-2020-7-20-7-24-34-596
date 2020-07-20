@@ -10,4 +10,11 @@ public class Competition {
     public int getScore() {
         return this.score;
     }
+
+    public Competition(int score) {
+        this.score = score;
+    }
+
+    public Competition() {
+    }
 }
