@@ -5,6 +5,11 @@ import java.util.List;
 public class Frame {
     private List<Competition> competitions;
     private int frameScore;
+    private boolean isFullAttack;
+
+    public boolean getIsFullAttack(){
+        return this.isFullAttack;
+    }
 
     public int getFrameScore() {
         return frameScore;
@@ -27,5 +32,8 @@ public class Frame {
             result += competition.getScore();
         }
         this.frameScore = result;
+        if (this.frameScore == 10){
+            this.isFullAttack = true;
+        }
     }
 }
