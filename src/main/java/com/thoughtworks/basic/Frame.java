@@ -24,7 +24,7 @@ public class Frame {
         this.competitions = competitions;
     }
 
-    public void calculateFrameScore() {
+    public int calculateFrameScore() {
         List<Competition> competitions =  this.getCompetitions();
         int result = 0;
         for (Competition competition:
@@ -35,5 +35,6 @@ public class Frame {
         if (this.frameScore == 10){
             this.isFullAttack = true;
         }
+        return  result;
     }
 }

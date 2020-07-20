@@ -1,5 +1,7 @@
 package com.thoughtworks.basic;
 
+import sun.plugin2.gluegen.runtime.CPU;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -25,15 +27,15 @@ public class Game {
             this.frames.get(i).calculateFrameScore();
             result += this.frames.get(i).getFrameScore();
             if (this.frames.get(i).getIsFullAttack()){
-                if (i < this.frames.size() - 1)
-                this.frames.get(i + 1).calculateFrameScore();
-                result += this.frames.get(i + 1).getFrameScore();
+                if (i < this.frames.size() - 1) {
+                    result += this.frames.get(i + 1).getCompetitions().get(0).getScore();
+                }
             }
         }
         return result;
     }
     public Boolean isOver(){
-        if (this.getUsedTimes() >= 20 && frames.get(frames.size() -1).getFrameScore() != 10)
+        if ((this.getUsedTimes() == 20 && frames.get(frames.size() -1).calculateFrameScore() != 10) || this.getUsedTimes() >= 21)
             return true;
         else
             return false;
@@ -52,7 +54,7 @@ public class Game {
         if (isOver()) {
             System.out.println("The game is over");
         } else {
-            if (this.getUsedTimes() % 2 == 0){
+            if (this.getUsedTimes() % 2 == 0 && this.getUsedTimes() != 20){
                 Competition competition = new Competition();
                 competition.attack(attackBalls);
                 Frame frame = new Frame();
@@ -60,11 +62,12 @@ public class Game {
                 competitions.add(competition);
                 frame.setCompetitions(competitions);
                 this.frames.add(frame);
-            }
-            else{
+            }else{
                 Competition competition = new Competition();
                 competition.attack(attackBalls);
-                this.frames.get(frames.size() - 1).getCompetitions().add(competition);
+                List<Competition> competitions = this.frames.get(frames.size() - 1).getCompetitions();
+                competitions.add(competition);
+                this.frames.get(frames.size() - 1).setCompetitions(competitions);
             }
         }
     }
